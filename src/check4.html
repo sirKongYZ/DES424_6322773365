@@ -1,9 +1,38 @@
 <!DOCTYPE html>
-<html>
-    <body>
-        <h1>Welcome to DES424: Check Point 4</h1>
-        <p>My Name: Khantapon Khu</p>
-        <p>My ID: 6322773365</p>
-        <p>Host: <MY_HOST></p>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redis Data Display</title>
+  </head>
+  <body>
+    <h1>Data from Redis</h1>
+    <div id="data-display"></div>
+
+    <script>
+      // Replace 'YOUR_API_ENDPOINT' with the actual URL of your API Gateway endpoint
+      const apiUrl =
+        "https://chw1hag9xi.execute-api.us-east-1.amazonaws.com/redis_live/redis";
+
+      fetch(apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the retrieved data here
+          console.log("Data from Lambda:", data);
+
+          // Display the data in the HTML element with id 'data-display'
+          const dataDisplay = document.getElementById("data-display");
+          dataDisplay.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Handle and display error messages if needed
+        });
+    </script>
+  </body>
 </html>
